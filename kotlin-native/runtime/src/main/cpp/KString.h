@@ -31,6 +31,7 @@ OBJ_GETTER(CreateStringFromUtf8, const char* utf8, uint32_t lengthBytes);
 char* CreateCStringFromString(KConstRef kstring);
 void DisposeCString(char* cstring);
 ObjHeader* CreatePermanentStringFromCString(const char* nullTerminatedUTF8);
+void FreePermanentStringForTests(ArrayHeader* header);  // to make ASAN happy, in hostRuntimeTests call FreePermanentStringForTests() after CreatePermanentStringFromCString()
 
 OBJ_GETTER(StringFromUtf8Buffer, const char* start, size_t size);
 

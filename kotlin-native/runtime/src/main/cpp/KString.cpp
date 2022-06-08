@@ -148,6 +148,10 @@ ObjHeader* CreatePermanentStringFromCString(const char* nullTerminatedUTF8) {
     return header->obj();
 }
 
+void FreePermanentStringForTests(ArrayHeader* header) {
+    std_support::free(header);
+}
+
 // String.kt
 OBJ_GETTER(Kotlin_String_replace, KString thiz, KChar oldChar, KChar newChar) {
   auto count = thiz->count_;

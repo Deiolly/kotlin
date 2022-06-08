@@ -28,7 +28,7 @@ TEST(KStringTest, CreatePermanentStringFromCString_ascii) {
 
     auto actual = CreatePermanentStringFromCString(ascii)->array();
     checkContentsEquality(actual, expected);
-    std_support::free(actual);
+    FreePermanentStringForTests(actual);  // to prevent Address Sanitizer test failures, permanently allocated strings must be deallocated before test end
 }
 
 TEST(KStringTest, CreatePermanentStringFromCString_misc) {
@@ -39,7 +39,7 @@ TEST(KStringTest, CreatePermanentStringFromCString_misc) {
 
     auto actual = CreatePermanentStringFromCString(non_ascii)->array();
     checkContentsEquality(actual, expected);
-    std_support::free(actual);
+    FreePermanentStringForTests(actual);  // to prevent Address Sanitizer test failures, permanently allocated strings must be deallocated before test end
 }
 
 TEST(KStringTest, CreatePermanentStringFromCString_surrogates) {
@@ -50,7 +50,7 @@ TEST(KStringTest, CreatePermanentStringFromCString_surrogates) {
 
     auto actual = CreatePermanentStringFromCString(surrogates)->array();
     checkContentsEquality(actual, expected);
-    std_support::free(actual);
+    FreePermanentStringForTests(actual);  // to prevent Address Sanitizer test failures, permanently allocated strings must be deallocated before test end
 }
 
 TEST(KStringTest, CreatePermanentStringFromCString_empty) {
@@ -61,7 +61,7 @@ TEST(KStringTest, CreatePermanentStringFromCString_empty) {
 
     auto actual = CreatePermanentStringFromCString(empty)->array();
     checkContentsEquality(actual, expected);
-    std_support::free(actual);
+    FreePermanentStringForTests(actual);  // to prevent Address Sanitizer test failures, permanently allocated strings must be deallocated before test end
 }
 
 TEST(KStringTest, CreatePermanentStringFromCString_impossible) {
@@ -72,7 +72,7 @@ TEST(KStringTest, CreatePermanentStringFromCString_impossible) {
 
     auto actual = CreatePermanentStringFromCString(impossible)->array();
     checkContentsEquality(actual, expected);
-    std_support::free(actual);
+    FreePermanentStringForTests(actual);  // to prevent Address Sanitizer test failures, permanently allocated strings must be deallocated before test end
 }
 
 TEST(KStringTest, CreatePermanentStringFromCString_overlong) {
@@ -83,5 +83,5 @@ TEST(KStringTest, CreatePermanentStringFromCString_overlong) {
 
     auto actual = CreatePermanentStringFromCString(overlong)->array();
     checkContentsEquality(actual, expected);
-    std_support::free(actual);
+    FreePermanentStringForTests(actual);  // to prevent Address Sanitizer test failures, permanently allocated strings must be deallocated before test end
 }
