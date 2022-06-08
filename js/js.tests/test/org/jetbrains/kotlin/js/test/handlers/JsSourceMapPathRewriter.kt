@@ -27,7 +27,9 @@ class JsSourceMapPathRewriter(testServices: TestServices) : AbstractJsArtifactsC
             TranslationMode.PER_MODULE,
             TranslationMode.PER_MODULE_DCE_MINIMIZED_NAMES,
         )
-        for (module in testServices.moduleStructure.modules) {
+        val testModules = testServices.moduleStructure.modules
+        val allTestFiles = testModules.flatMap { it.files }
+        for (module in testModules) {
             for (mode in supportedTranslationModes) {
                 val sourceMapFile =
                     File(JsEnvironmentConfigurator.getJsModuleArtifactPath(testServices, module.name, mode) + ".js.map")
@@ -35,7 +37,7 @@ class JsSourceMapPathRewriter(testServices: TestServices) : AbstractJsArtifactsC
 
                 val dependencies = JsEnvironmentConfigurator.getAllRecursiveDependenciesFor(module, testServices)
                 SourceMap.replaceSources(sourceMapFile) { path ->
-                    module.files.find { it.name == path }?.originalFile?.absolutePath?.let {
+                    allTestFiles.find { it.name == path }?.originalFile?.absolutePath?.let {
                         return@replaceSources it
                     }
 
