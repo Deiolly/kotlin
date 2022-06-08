@@ -8,6 +8,9 @@
 
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
+#include "std_support/CStdlib.hpp"
+
+using namespace kotlin;
 
 void checkContentsEquality(ArrayHeader* actual, const char16_t* expected) {
     EXPECT_THAT(actual->count_, std::char_traits<char16_t>::length(expected));
@@ -25,6 +28,7 @@ TEST(KStringTest, CreatePermanentStringFromCString_ascii) {
 
     auto actual = CreatePermanentStringFromCString(ascii)->array();
     checkContentsEquality(actual, expected);
+    std_support::free(actual);
 }
 
 TEST(KStringTest, CreatePermanentStringFromCString_misc) {
@@ -35,6 +39,7 @@ TEST(KStringTest, CreatePermanentStringFromCString_misc) {
 
     auto actual = CreatePermanentStringFromCString(non_ascii)->array();
     checkContentsEquality(actual, expected);
+    std_support::free(actual);
 }
 
 TEST(KStringTest, CreatePermanentStringFromCString_surrogates) {
@@ -45,6 +50,7 @@ TEST(KStringTest, CreatePermanentStringFromCString_surrogates) {
 
     auto actual = CreatePermanentStringFromCString(surrogates)->array();
     checkContentsEquality(actual, expected);
+    std_support::free(actual);
 }
 
 TEST(KStringTest, CreatePermanentStringFromCString_empty) {
@@ -55,6 +61,7 @@ TEST(KStringTest, CreatePermanentStringFromCString_empty) {
 
     auto actual = CreatePermanentStringFromCString(empty)->array();
     checkContentsEquality(actual, expected);
+    std_support::free(actual);
 }
 
 TEST(KStringTest, CreatePermanentStringFromCString_impossible) {
@@ -65,6 +72,7 @@ TEST(KStringTest, CreatePermanentStringFromCString_impossible) {
 
     auto actual = CreatePermanentStringFromCString(impossible)->array();
     checkContentsEquality(actual, expected);
+    std_support::free(actual);
 }
 
 TEST(KStringTest, CreatePermanentStringFromCString_overlong) {
@@ -75,4 +83,5 @@ TEST(KStringTest, CreatePermanentStringFromCString_overlong) {
 
     auto actual = CreatePermanentStringFromCString(overlong)->array();
     checkContentsEquality(actual, expected);
+    std_support::free(actual);
 }
