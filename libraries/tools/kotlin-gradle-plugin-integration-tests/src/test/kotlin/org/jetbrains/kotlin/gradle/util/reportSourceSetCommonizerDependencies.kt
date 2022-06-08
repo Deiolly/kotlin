@@ -94,10 +94,16 @@ data class SourceSetCommonizerDependencies(
             fail(buildString {
                 appendLine("$sourceSetName: Set of commonizer dependencies does not match given 'fileMatchers'")
                 if (unmatchedDependencies.isNotEmpty()) {
-                    appendLine("Unmatched dependencies: $unmatchedDependencies")
+                    appendLine("Unmatched dependencies:")
+                    unmatchedDependencies.forEach { dependency ->
+                        appendLine(dependency)
+                    }
                 }
                 if (unmatchedMatchers.isNotEmpty()) {
-                    appendLine("Unmatched fileMatchers: $unmatchedMatchers")
+                    appendLine("Unmatched fileMatchers:")
+                    unmatchedMatchers.forEach { matcher ->
+                        appendLine(matcher)
+                    }
                 }
             })
         }
