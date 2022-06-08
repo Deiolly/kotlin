@@ -982,6 +982,7 @@ internal class CAdapterGenerator(val context: Context) : DeclarationDescriptorVi
         |};
         |
         |static void DisposeStablePointerImpl(${prefix}_KNativePtr ptr) {
+        |  ScopedRunnableState stateGuard;
         |  DisposeStablePointer(ptr);
         |}
         |static void DisposeStringImpl(const char* ptr) {
